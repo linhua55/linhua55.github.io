@@ -27,7 +27,7 @@ after_script:
   - chmod 600 deploy-key
   - eval `ssh-agent -s`
   - ssh-add deploy-key
-  - cd blog/.deploy_git
+  - cd .deploy_git
   - git config user.name "travisCI"
   - git config user.email "linhua55@gmail.com"
   - git add .
