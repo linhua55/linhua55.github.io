@@ -37,7 +37,7 @@ after_script:
 
 branches:
   only:
-    - master
+    - src_branch
     
 env:
   global:
