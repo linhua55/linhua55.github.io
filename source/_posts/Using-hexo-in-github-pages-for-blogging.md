@@ -1,4 +1,8 @@
-# Use Hexo for blogging in github pages
+---
+title: Use Hexo for blogging in github pages
+date: 2016-10-26 20:31:16
+tags:
+---
 
 ## Install
 
@@ -83,8 +87,6 @@ Hexo's default markdown render don't support footnote. use `hexo-renderer-markdo
         quotes: '“”‘’'
       plugins:
 	        - markdown-it-footnote
-	        - markdown-it-sup
-	        - markdown-it-sub
 	        - markdown-it-abbr
 	    anchors:
 	        level: 1
@@ -156,6 +158,18 @@ https://joilence.github.io/2016/07/14/improve-blog/
 在博客根目录下使用 sudo hexo clean
 删除博客根目录下的 db.json 文件
 再重新生成网页就可以了。
+
+## Todo
+### comment
+### use Travis CI to auto-build the output
+   For writing blog on another machine. Don't need to setup the build environment in Linux.
+
+   Docker???
+
+   refer to: http://notes.iissnan.com/2016/publishing-github-pages-with-travis-ci/
+
+### TOC(Topic of content)
+### font, CSS, javaScript
 
 http://crazymilk.github.io/2015/12/28/GitHub-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more
 
