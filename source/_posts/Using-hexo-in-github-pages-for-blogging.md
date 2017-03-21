@@ -167,7 +167,23 @@ https://joilence.github.io/2016/07/14/improve-blog/
    Docker???
 
    refer to: http://notes.iissnan.com/2016/publishing-github-pages-with-travis-ci/
+   https://djw8605.github.io/2017/02/08/deploying-docs-on-github-with-travisci/   important
+   https://github.com/alrra/travis-scripts/blob/master/doc/github-deploy-keys.md
+   
+   half50Mac OS 10.12.0Chrome 50.0.2661.75
+这篇文章可以有更好的实现方式
+文章的方式是使用 personal_token
+可以对所有项目进行读写等行为
+现在 github 上每个项目有 deploy_key
+对该项目有读写权限（push 需要打勾）
 
+我优化后的部署配置流程是
+1. 用命令 `ssh-keygen -t rsa` 生成密钥
+2. 复制公钥 `id_rsa.pub` 内容添加到项目的 deploy_key 并打勾写权限
+3. 将密钥 `id_rsa` 通过 `travis` 加密工具加密并提交到 `master` 分支
+4. 在 `travis` 上自动部署的时候用 `ssh-agent bash -c 'ssh-add /path/to/id_rsa; git push -f -q git@github.com/repo.git master:gh-pages'`
+   
+   
 ### TOC(Topic of content)
 ### font, CSS, javaScript
 
