@@ -1,0 +1,46 @@
+language: node_js
+node_js: stable
+
+# Travis-CI Caching
+cache:
+  directories:
+    - node_modules
+
+
+# S: Build Lifecycle
+install:
+  - npm install
+
+before_script:
+  - npm install hexo-cli -g
+  - npm install hexo-deployer-git --save
+  - npm install hexo-math --save
+  - npm un hexo-renderer-marked --save
+  - npm i hexo-renderer-markdown-it --save
+
+  
+script:
+  - hexo generate
+
+after_script:
+  - openssl aes-256-cbc -K $encrypted_b7e9f3138b36_key -iv $encrypted_b7e9f3138b36_iv -in deploy-key.enc -out deploy-key -d
+  - chmod 600 deploy-key
+  - eval `ssh-agent -s`
+  - ssh-add deploy-key
+  - cd blog/.deploy_git
+  - git config user.name "travisCI"
+  - git config user.email "linhua55@gmail.com"
+  - git add .
+  - git commit -m "Update docs"
+  - git push --force --quiet ${GH_REF} master
+# E: Build LifeCycle
+
+branches:
+  only:
+    - master
+    
+env:
+  global:
+  - GIT_NAME: "'linhua55'"
+  - GIT_EMAIL: 5linhua5@gmail.com
+  - GH_REF: git@github.com:linhua55/linhua55.github.io.git
