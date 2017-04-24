@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://linhua55.github.io">
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://linhua55.github.io/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">linhua</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="#" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">linhua</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="null" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">linhua</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        
+  
+    <article id="post-LKL(Linux Kernel Library)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/24/LKL(Linux Kernel Library)/">LKL(Linux Kernel Library)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="lkl-linux-kernel-library"><a class="header-anchor" href="#lkl-linux-kernel-library"> </a>LKL(Linux Kernel Library)</h1>
+<h2 id="golang-program-with-lkl"><a class="header-anchor" href="#golang-program-with-lkl"> </a>Golang program with LKL</h2>
+<h3 id="issue"><a class="header-anchor" href="#issue"> </a>issue</h3>
+<p>Golang has no Glibc dependency, it calls linux’s syscalls directly. Thus golang program compiled with gc(normal go compiler) can’t be hijacked by <a href="http://liblkl-hijack.so" target="_blank" rel="external">liblkl-hijack.so</a>.</p>
+<h3 id="two-methods"><a class="header-anchor" href="#two-methods"> </a>Two methods</h3>
+<ol>
+<li>add LKL arch to golang. (add LKL syscalls)</li>
+<li>use gccgo to compile the golang program.  As program compiled by gccgo will use glibc to call syscalls.</li>
+</ol>
+<p>Compiling golang program(v2ray) with gccgo needs some modifications. But the program compiled with gccgo will occupy huge memory than normal v2ray.</p>
+<p>v2ray(gccgo): 8% memory</p>
+<p>v2ray(gc)(normal): 2% memory</p>
+<h2 id="raw-packet-socket-backend-for-lkl-in-openvz"><a class="header-anchor" href="#raw-packet-socket-backend-for-lkl-in-openvz"> </a>raw/packet socket backend for LKL in openVZ</h2>
+<p>OpenVZ’s venet0 network interface is a Cooked interface. Its raw packet has no MAC layer(14 bytes).</p>
+<p>It can’t use  <code>AF_PACKET/SOCK_RAW</code>, can only use <code>AF_PACKET/SOCK_DGRAM</code>.</p>
+<p>And thus, It has no ARP protocol packet, only has IP protocol packet. How about IPSEC?(I don’t know.)</p>
+<p>It don’t need gateway, it’s a pointopoint network interface.</p>
+<p>LKL has a native support for raw/packet socket backend. But it’s not for openVZ, it need send ARP packet. While, we can modify some pieces of code to suport raw/packet socket in openVZ.</p>
+<h3 id="test-send-recv-with-af-packet-sock-dgram"><a class="header-anchor" href="#test-send-recv-with-af-packet-sock-dgram"> </a>Test send/recv with AF_PACKET/SOCK_DGRAM</h3>
+<p>As buffer is a form of <code>struct iovec</code>. Thus can only use <code>writev/readv</code> or <code>sendmsg/recvmsg</code>. And as the socket type is <code>SOCK_DGRAM</code>, It’s connectionless, you must specify the destination address, thus can’t use <code>writev/readv</code>, but can use <code>sendmsg/recvmsg</code>.</p>
+<h3 id="the-setting-of-lkl-s-network-interface-eth0"><a class="header-anchor" href="#the-setting-of-lkl-s-network-interface-eth0"> </a>The setting of LKL’s network interface(eth0)</h3>
+<p>We can’t use original setting of LKL’s network interface. As it for network with a gateway. But openVZ has no gateway and we also can’t set a tun/tap interface to act as a gateway for LKL. We can set <code>eth0</code>(LKL’s network interface) to <code>POINTOPOINT</code> mode, just like the openVZ’s <code>venet0</code> interface. But haven’t find a method to set <code>eth0</code> to <code>POINTOPOINT</code> mode. Surprisingly, we can set <code>eth0</code> interface to <code>NOARP</code> mode. And it indeed work just like wanted.</p>
+<p>You can test it(the <code>NOARP</code> method) with <code>ping</code> program(without LKL) on your linux box. Remember to use <code>tcpdump</code> to monitor the interface. First, you set your network interface without a gateway, and you <code>ping</code>, you can’t find output of <code>tcpdump</code>. But when you set your interface to <code>NOARP</code> mode, you <code>ping</code>, and it will work(the <code>tcpdump</code> program will output something ).</p>
+<p>the tcpdump command:</p>
+<pre><code>$ sudo tcpdump -nnq -i your-interface icmp
+</code></pre>
+<h3 id="the-struct-iovec-type-buffer-in-lkl"><a class="header-anchor" href="#the-struct-iovec-type-buffer-in-lkl"> </a>The <code>struct iovec</code> type buffer in LKL</h3>
+<p>LKL’s  rx function’s <code>iovec *</code> iov pointer  array’s  first  <code>iovec</code> buffer is useless. You should only use the second buffer <code>iov[1]</code>.</p>
+<h3 id="todo"><a class="header-anchor" href="#todo"> </a>TODO</h3>
+<p>If we use TCP with LKL(raw socket), it will fail. As LKL’s network stack will return <code>RST</code> packet to peer to cutoff the connection. Thus in order to distinguish the LKL  network stack with native network stack, we should workout on it.</p>
+<p>One workaround is to use LKL for <code>listen socket(server port)</code>, not for client socket.</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/24/LKL(Linux Kernel Library)/" class="archive-article-date">
+  	<time datetime="2017-04-24T15:31:16.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-24</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LKL-library/">LKL, library</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-aaa" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/24/aaa/">test aaa</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="quick-start"><a class="header-anchor" href="#quick-start"> </a>Quick Start</h2>
+<h3 id="create-a-new-post"><a class="header-anchor" href="#create-a-new-post"> </a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="run-server"><a class="header-anchor" href="#run-server"> </a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="generate-static-files"><a class="header-anchor" href="#generate-static-files"> </a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="deploy-to-remote-sites"><a class="header-anchor" href="#deploy-to-remote-sites"> </a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/24/aaa/" class="archive-article-date">
+  	<time datetime="2017-04-24T08:30:38.565Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-24</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/24/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="quick-start"><a class="header-anchor" href="#quick-start"> </a>Quick Start</h2>
+<h3 id="create-a-new-post"><a class="header-anchor" href="#create-a-new-post"> </a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="run-server"><a class="header-anchor" href="#run-server"> </a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="generate-static-files"><a class="header-anchor" href="#generate-static-files"> </a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="deploy-to-remote-sites"><a class="header-anchor" href="#deploy-to-remote-sites"> </a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/24/hello-world/" class="archive-article-date">
+  	<time datetime="2017-04-24T08:30:38.565Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-24</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Using-hexo-in-github-pages-for-blogging" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/26/Using-hexo-in-github-pages-for-blogging/">Use Hexo for blogging in github pages</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="install"><a class="header-anchor" href="#install"> </a>Install</h2>
+<h3 id="npm"><a class="header-anchor" href="#npm"> </a>NPM</h3>
+<pre><code>sudo pacman -S npm
+</code></pre>
+<h4 id="china-mirror"><a class="header-anchor" href="#china-mirror"> </a>China mirror</h4>
+<pre><code>sudo npm config set registry https://registry.npm.taobao.org
+</code></pre>
+<h3 id="hexo"><a class="header-anchor" href="#hexo"> </a>Hexo</h3>
+<p>As pacman install the npm in the <code>/usr</code> path.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> We need root priveledge to install Hexo. But this will make running npm and Hexo need root previledge.</p>
+<pre><code>##npm config get prefix
+
+sudo npm install hexo-cli -g[^fn2]
+</code></pre>
+<h2 id="setup-a-blog"><a class="header-anchor" href="#setup-a-blog"> </a>Setup a blog</h2>
+<pre><code>$ sudo hexo init blog
+</code></pre>
+<p>Need root priveledge, and the current directory need to not be in NTFS or FAT filesystem. As it will make symbolic link.  And then you should better change the ownership.</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chown -R vagrant:vagrant blog</div></pre></td></tr></table></figure>
+</code></pre>
+<p>I use <code>vagrant:vagrant</code> here, you should set yourself <code>userName:groupName</code>.</p>
+<h2 id="hexo-plugin"><a class="header-anchor" href="#hexo-plugin"> </a>Hexo plugin</h2>
+<h3 id="git"><a class="header-anchor" href="#git"> </a>git<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></h3>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+</code></pre>
+<p>This will install it in the local directory, the <code>blog</code> directory.</p>
+<p>Edit settings. <code>_config.yml</code></p>
+<pre><code><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span></div><div class="line"><span class="attr">  branch:</span> <span class="string">[branch]</span></div></pre></td></tr></table></figure>
+</code></pre>
+<h3 id="mathjax"><a class="header-anchor" href="#mathjax"> </a>mathjax<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></h3>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-math --save</div></pre></td></tr></table></figure>
+</code></pre>
+<h3 id="footnote"><a class="header-anchor" href="#footnote"> </a>footnote</h3>
+<p>Hexo’s default markdown render don’t support footnote. use <code>hexo-renderer-markdown-it</code><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup> instead.</p>
+<h4 id="install-v2"><a class="header-anchor" href="#install-v2"> </a>install</h4>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ npm un hexo-renderer-marked --save</div><div class="line">$ npm i hexo-renderer-markdown-it --save</div></pre></td></tr></table></figure>
+</code></pre>
+<h4 id="configure"><a class="header-anchor" href="#configure"> </a>configure<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup></h4>
+<pre><code><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="attr">markdown:</span></div><div class="line"><span class="attr">  render:</span></div><div class="line"><span class="attr">    html:</span> <span class="literal">true</span></div><div class="line"><span class="attr">    xhtmlOut:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    breaks:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    linkify:</span> <span class="literal">true</span></div><div class="line"><span class="attr">    typographer:</span> <span class="literal">true</span></div><div class="line"><span class="attr">    quotes:</span> <span class="string">'“”‘’'</span></div><div class="line"><span class="attr">  plugins:</span></div><div class="line"><span class="bullet">     -</span> <span class="string">markdown-it-footnote</span></div><div class="line"><span class="bullet">     -</span> <span class="string">markdown-it-abbr</span></div><div class="line"><span class="attr"> anchors:</span></div><div class="line"><span class="attr">     level:</span> <span class="number">1</span></div><div class="line"><span class="attr">     collisionSuffix:</span> <span class="string">'v'</span></div><div class="line"><span class="attr">     permalink:</span> <span class="literal">true</span></div><div class="line"><span class="attr">     permalinkClass:</span> <span class="string">header-anchor</span></div><div class="line"><span class="attr">     permalinkSymbol:</span> <span class="string">' '</span></div></pre></td></tr></table></figure>
+</code></pre>
+<p>If under the footnote, there has some block, such as <code>code block</code>. The code block will be act as footnote. You should put the footnote to the end of the article Or use the <code>Horizontal rule/line</code> to cut them.</p>
+<p><strong>Attention:</strong> the <code>Horizontal rule/line break</code> is <code>***</code> here. Not <code>---</code>.</p>
+<h3 id="comment-todo"><a class="header-anchor" href="#comment-todo"> </a>comment [Todo]</h3>
+<h2 id="use"><a class="header-anchor" href="#use"> </a>Use</h2>
+<h3 id="create-a-new-post"><a class="header-anchor" href="#create-a-new-post"> </a>Create a new post</h3>
+<pre><code>$ sudo hexo new &quot;Hello Hexo&quot;
+</code></pre>
+<h3 id="generate-static-files"><a class="header-anchor" href="#generate-static-files"> </a>Generate static files</h3>
+<pre><code>$ sudo hexo generate
+</code></pre>
+<p>or</p>
+<pre><code>$ sudo hexo g
+</code></pre>
+<h3 id="deploy"><a class="header-anchor" href="#deploy"> </a>Deploy</h3>
+<pre><code>$ sudo hexo deploy
+</code></pre>
+<p>or</p>
+<pre><code>$ sudo hexo d
+</code></pre>
+<p>or with generate</p>
+<pre><code>$ sudo hexo d -g
+</code></pre>
+<p>If it didn’t pop up the input hint to input name/password. You should manually git push.</p>
+<pre><code>$ cd blog/.deploy_git
+$ git push
+</code></pre>
+<h2 id="backup-use-hexo-git-backup"><a class="header-anchor" href="#backup-use-hexo-git-backup"> </a>Backup (Use hexo-git-backup)</h2>
+<p>Use git and .gitignore to backup other source directory to another branch.
+Make a shell script.</p>
+<p>Or  use <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">https://github.com/coneycode/hexo-git-backup</a></p>
+<pre><code>$ npm install hexo-git-backup --save
+</code></pre>
+<p>You should configure this plugin in <code>_config.yml</code>.</p>
+<pre><code>backup:
+    type: git
+    repository:
+       github: git@github.com:xxx/xxx.git,branchName
+       gitcafe: git@github.com:xxx/xxx.git,branchName
+</code></pre>
+<hr>
+<pre><code>$ hexo backup
+</code></pre>
+<p>or</p>
+<pre><code>$ hexo b
+</code></pre>
+<h2 id="删除文章"><a class="header-anchor" href="#删除文章"> </a>删除文章</h2>
+<p><a href="https://joilence.github.io/2016/07/14/improve-blog/" target="_blank" rel="external">https://joilence.github.io/2016/07/14/improve-blog/</a>
+在使用 hexo new 生成新文章之后，想要删除，如果只是直接在 /source/_post 中将相关 md 文件删除，可能在生成网页后还会重现。删除文章比较完备的步骤如下：</p>
+<p>在 /source/_post 中删除相关 md 文件
+在博客根目录下使用 sudo hexo clean
+删除博客根目录下的 db.json 文件
+再重新生成网页就可以了。</p>
+<h2 id="todo"><a class="header-anchor" href="#todo"> </a>Todo</h2>
+<h3 id="comment"><a class="header-anchor" href="#comment"> </a>comment</h3>
+<h3 id="use-travis-ci-to-auto-build-the-output"><a class="header-anchor" href="#use-travis-ci-to-auto-build-the-output"> </a>use Travis CI to auto-build the output</h3>
+<p>For writing blog on another machine. Don’t need to setup the build environment in Linux.</p>
+<p>Docker???</p>
+<p>refer to: <a href="http://notes.iissnan.com/2016/publishing-github-pages-with-travis-ci/" target="_blank" rel="external">http://notes.iissnan.com/2016/publishing-github-pages-with-travis-ci/</a>
+  <a href="https://djw8605.github.io/2017/02/08/deploying-docs-on-github-with-travisci/" target="_blank" rel="external">https://djw8605.github.io/2017/02/08/deploying-docs-on-github-with-travisci/</a>   important
+<a href="https://github.com/alrra/travis-scripts/blob/master/doc/github-deploy-keys.md" target="_blank" rel="external">https://github.com/alrra/travis-scripts/blob/master/doc/github-deploy-keys.md</a></p>
+<p>half50Mac OS 10.12.0Chrome 50.0.2661.75
+这篇文章可以有更好的实现方式
+文章的方式是使用 personal_token
+可以对所有项目进行读写等行为
+现在 github 上每个项目有 deploy_key
+对该项目有读写权限（push 需要打勾）</p>
+<p>我优化后的部署配置流程是</p>
+<ol>
+<li>用命令 <code>ssh-keygen -t rsa</code> 生成密钥</li>
+<li>复制公钥 <code>id_rsa.pub</code> 内容添加到项目的 deploy_key 并打勾写权限</li>
+<li>将密钥 <code>id_rsa</code> 通过 <code>travis</code> 加密工具加密并提交到 <code>master</code> 分支</li>
+<li>在 <code>travis</code> 上自动部署的时候用 <code>ssh-agent bash -c 'ssh-add /path/to/id_rsa; git push -f -q git@github.com/repo.git master:gh-pages'</code></li>
+</ol>
+<h3 id="toc-topic-of-content"><a class="header-anchor" href="#toc-topic-of-content"> </a>TOC(Topic of content)</h3>
+<h3 id="font-css-javascript"><a class="header-anchor" href="#font-css-javascript"> </a>font, CSS, javaScript</h3>
+<p><a href="http://crazymilk.github.io/2015/12/28/GitHub-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more" target="_blank" rel="external">http://crazymilk.github.io/2015/12/28/GitHub-Pages-Hexo搭建博客/#more</a></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://docs.npmjs.com/getting-started/fixing-npm-permissions" target="_blank" rel="external">https://docs.npmjs.com/getting-started/fixing-npm-permissions</a>. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://hexo.io/docs/deployment.html#Git" target="_blank" rel="external">https://hexo.io/docs/deployment.html#Git</a> <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">https://github.com/akfish/hexo-math</a> <a href="#fnref3" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://github.com/akfish/hexo-math/issues/26" target="_blank" rel="external">https://github.com/akfish/hexo-math/issues/26</a> <a href="#fnref4" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p><a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="external">https://github.com/celsomiranda/hexo-renderer-markdown-it</a> <a href="#fnref5" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p><a href="https://joilence.github.io/2016/07/14/improve-blog/" target="_blank" rel="external">https://joilence.github.io/2016/07/14/improve-blog/</a> <a href="#fnref6" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/26/Using-hexo-in-github-pages-for-blogging/" class="archive-article-date">
+  	<time datetime="2016-10-26T20:31:16.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-26</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Hello-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/26/Hello-Hexo/">Hello Hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>$a^2+b^2=c^2$</p>
+<p>$$
+a^2+b^2=c^2
+$$</p>
+<p>Inline:</p>
+<p>Simple inline $a = b + c$.
+Block:</p>
+<p>$$\frac{\partial u}{\partial t}
+= h^2 \left( \frac{\partial^2 u}{\partial x^2} +
+\frac{\partial^2 u}{\partial y^2} +
+\frac{\partial^2 u}{\partial z^2}\right)$$
+Tag:</p>
+<p>Single line content will be parsed as inline math (same as $…$):</p>
+<p>This equation <span>$\cos 2\theta = \cos^2 \theta - \sin^2 \theta =  2 \cos^2 \theta - 1$</span><!-- Has MathJax --> is inline.
+Multiple line content will be parsed as block math (same as $$…$$)</p>
+<span>$$\begin{aligned}
+\dot{x} &amp; = \sigma(y-x) \\
+\dot{y} &amp; = \rho x - y - xz \\
+\dot{z} &amp; = -\beta z + xy
+\end{aligned}$$</span><!-- Has MathJax -->
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/26/Hello-Hexo/" class="archive-article-date">
+  	<time datetime="2016-10-26T15:31:16.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-26</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 linhua
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/LKL-library/" style="font-size: 10px;">LKL, library</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
